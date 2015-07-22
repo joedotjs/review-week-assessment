@@ -20,6 +20,7 @@ describe('Task', function () {
 
   describe('Virtuals', function() {
     describe('timeRemaining', function() {
+
       it('returns the Infinity value if task has no due date', function() {
         var task = new Task()
         task.timeRemaining.should.equal(Infinity)
@@ -40,26 +41,26 @@ describe('Task', function () {
     })
 
     describe('overdue', function() {
-      it('is overdue if the due date is in the past', function() {
+      it('is true if the due date is in the past', function() {
         var task = new Task({
           due: helper.dates.yesterday()
         })
-        task.overdue.should.be.true
+        task.overdue.should.be.exactly(true);
       })
 
-      it('is not overdue if the due date is in the past but complete is true', function() {
+      it('is should be false if the due date is in the past but complete is true', function() {
         var task = new Task({
           due: helper.dates.yesterday(),
           complete: true
         })
-        task.overdue.should.be.false
+        task.overdue.should.be.exactly(false);
       })
 
       it('is not overdue if the due date is in the future', function() {
         var task = new Task({
           due: helper.dates.tomorrow()
         })
-        task.overdue.should.be.false
+        task.overdue.should.be.exactly(false);
       })
     })
   })
